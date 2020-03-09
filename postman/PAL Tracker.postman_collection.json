@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "f37b68ae-0859-43ae-b6c3-64c85dbf4f96",
+		"name": "PAL Tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Workflows",
+			"item": [
+				{
+					"name": "Hello",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cfddb28-11bf-41d1-9c6e-e8cf176f88df",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}",
+							"host": [
+								"{{route}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Entries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "834299af-9243-45ca-a07c-7d543bced759",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/time-entries",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"time-entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Time Entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "45e4f774-a71e-43e1-8d60-6d2a262d19a0",
+								"exec": [
+									"var id = pm.response.json().id;",
+									"",
+									"pm.environment.set(\"id\", id)",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectId\": 1,\n    \"userId\": 1,\n    \"date\": \"2020-11-02\",\n    \"hours\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{route}}/time-entries",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"time-entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Time Entries by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4dd1b9e1-2009-417b-99b6-af252035358f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/time-entries/{{id}}",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"time-entries",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Time Entry by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1abb07a8-42db-4d53-aa74-ea682274b3c8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectId\": 1,\n    \"userId\": 1,\n    \"date\": \"2020-11-02\",\n    \"hours\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{route}}/time-entries/{{id}}",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"time-entries",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Time Entry by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97f05bbd-ce58-440c-9133-9dd293850886",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"projectId\": 1,\n    \"userId\": 1,\n    \"date\": \"2020-11-02\",\n    \"hours\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{route}}/time-entries/{{id}}",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"time-entries",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Management",
+			"item": [
+				{
+					"name": "Set PAL Tracker Failure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/actuator/palTrackerFailure",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"actuator",
+								"palTrackerFailure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unset PAL Tracker Failure",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/actuator/palTrackerFailure",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"actuator",
+								"palTrackerFailure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Readiness Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/actuator/health/readiness",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"readiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Liveness Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/actuator/health/liveness",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"actuator",
+								"health",
+								"liveness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{route}}/actuator/health",
+							"host": [
+								"{{route}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pal-tracker
+  namespace: development
+  labels:
+    app: pal-tracker
+data:
+  management.endppoints.web.exposure.include: "info,health,palTrackerFailure"
+  management.endppoint.health.group.readiness.include: "flywayMigration"

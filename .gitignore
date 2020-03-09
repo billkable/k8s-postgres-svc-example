@@ -1,0 +1,4 @@
+.idea
+variables*.yaml
+build
+.gradle

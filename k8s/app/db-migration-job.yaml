@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-db-job
+  namespace: development
+  labels:
+    app: pal-tracker
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrate-db-container
+        image: bkable/pal-tracker-db-migration:v10
+        envFrom:
+          - secretRef:
+              name: db-credentials
+      restartPolicy: Never
+  backoffLimit: 3

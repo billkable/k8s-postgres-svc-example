@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pal-tracker
+  namespace: development
+  labels:
+    app: pal-tracker
+spec:
+  selector:
+    matchLabels:
+      app: pal-tracker
+      name: pal-tracker-pod
+  template:
+    # Pod definition starts here
+    metadata:
+      labels:
+        app: pal-tracker
+        name: pal-tracker-pod
+    spec:
+      containers:
+        - name: pal-tracker-container
+          image: bkable/pal-tracker:v10
+          envFrom:
+            - secretRef:
+                name: db-credentials
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 150
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sleep", "10" ]
+          env:
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              valueFrom:
+                configMapKeyRef:
+                  name: pal-tracker
+                  key: management.endppoints.web.exposure.include
+            - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+              valueFrom:
+                configMapKeyRef:
+                  name: pal-tracker
+                  key: management.endppoint.health.group.readiness.include
